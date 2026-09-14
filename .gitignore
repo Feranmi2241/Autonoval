@@ -11,7 +11,7 @@ dist/
 .env.development
 .env.production
 .env.staging
-!.env.example
+
 
 # AI Studio internal metadata — not needed for deployment
 metadata.json

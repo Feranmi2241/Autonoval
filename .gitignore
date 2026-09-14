@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+dist/
+
+# Environment files — NEVER push these, they contain real API keys
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+!.env.example
+
+# AI Studio internal metadata — not needed for deployment
+metadata.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor directories
+.vscode/
+.idea/
+
+# Test coverage
+coverage/

@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Hanken+Grotesk:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Hanken Grotesk", "Plus Jakarta Sans", sans-serif;
+  --font-display: "Plus Jakarta Sans", "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-brand-cyan: #00e5ff;
+  --color-brand-teal: #00696f;
+  --color-brand-violet: #7c3aed;
+  --color-brand-glow: rgba(0, 229, 255, 0.18);
+
+  /* Remap the entire "teal" palette (used ~1000+ times across the app as the primary accent)
+     to the spec's electric-cyan brand color, so every existing teal-* class instantly
+     becomes on-brand without editing every component file individually. */
+  --color-teal-50: #ecfeff;
+  --color-teal-100: #cffafe;
+  --color-teal-150: #a5f3fc;
+  --color-teal-200: #a5f3fc;
+  --color-teal-300: #67e8f9;
+  --color-teal-400: #22d3ee;
+  --color-teal-500: #06b6d4;
+  --color-teal-600: #0891b2;
+  --color-teal-700: #0e7490;
+  --color-teal-800: #155e75;
+  --color-teal-850: #164e63;
+  --color-teal-900: #164e63;
+  --color-teal-950: #0c2f3d;
+
+  /* Remap "purple" to the spec's violet, so AI/premium accents that already use purple-*
+     classes (Boost toggle, Featured badge, etc.) land on the correct brand violet. */
+  --color-purple-300: #c4b5fd;
+  --color-purple-400: #a78bfa;
+  --color-purple-500: #8b5cf6;
+  --color-purple-700: #7c3aed;
+  --color-purple-800: #6d28d9;
+
+  --animate-reverse-spin: reverse-spin 1s linear infinite;
+  --animate-sparkle-rotate: sparkle-rotate 3.5s linear infinite;
+  --animate-shimmer: shimmer 2.5s ease-in-out infinite;
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    50%, 100% { transform: translateX(100%); }
+  }
+
+  @keyframes sparkle-rotate {
+    from {
+      --sparkle-angle: 0deg;
+    }
+    to {
+      --sparkle-angle: 360deg;
+    }
+  }
+
+  @keyframes reverse-spin {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: rgba(18, 18, 18, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .glass-panel-light {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+  }
+
+  .glow-violet {
+    box-shadow: 0 0 25px rgba(130, 29, 218, 0.35);
+  }
+
+  .glow-text-cyan {
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+  }
+
+  .glow-border {
+    position: relative;
+  }
+
+  .glow-border::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 242, 255, 0.5), rgba(130, 29, 218, 0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+/* Custom animated grid background */
+.grid-bg {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Pulse keyframes for scanner line */
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}
+
+.scanner-line {
+  animation: scan 8s linear infinite;
+}
+
+/* Scrollbar customizations — light theme to match the app's white background */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.35);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 229, 255, 0.6);
+}
+
+/* ============================================================
+   Signature "AI Sparkle Glow" — rotating conic-gradient border
+   Apply `ai-sparkle-glow` to the wrapper of any search bar or
+   AI input. Add the `ai-sparkle-glow--active` modifier while
+   typing or while an AI request is in-flight to intensify it.
+   ============================================================ */
+.ai-sparkle-glow {
+  position: relative;
+  border-radius: inherit;
+}
+
+.ai-sparkle-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--sparkle-angle, 0deg),
+    var(--color-brand-violet),
+    var(--color-brand-cyan),
+    var(--color-brand-violet)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: var(--animate-sparkle-rotate);
+  opacity: 0.55;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ai-sparkle-glow::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--sparkle-angle, 0deg),
+    var(--color-brand-violet),
+    var(--color-brand-cyan),
+    var(--color-brand-violet)
+  );
+  filter: blur(10px);
+  opacity: 0.25;
+  animation: var(--animate-sparkle-rotate);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ai-sparkle-glow--active::before {
+  opacity: 0.9;
+}
+
+.ai-sparkle-glow--active::after {
+  opacity: 0.5;
+  filter: blur(14px);
+}
+
+.ai-sparkle-glow > * {
+  position: relative;
+  z-index: 2;
+}
+

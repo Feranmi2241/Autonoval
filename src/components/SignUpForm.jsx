@@ -1204,7 +1204,7 @@ export const SignUpForm = ({ mode = 'signup', onSuccess, onAuthenticationSuccess
                 onMouseEnter={() => AutoNovaAudio.playHover()}
                 className="w-full relative group mt-3 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-mono font-extrabold tracking-widest text-xs uppercase cursor-pointer shadow-md transition-all border border-zinc-950 overflow-hidden"
               >
-                <span>{isSignUp ? 'INITIALIZE NODE CREATION' : 'AUTHORIZE PORTAL ENTRANCE'}</span>
+                <span>{isSignUp ? 'SIGN UP' : 'SIGN IN'}</span>
                 <ArrowRight className="h-4 w-4 text-white animate-pulse" />
               </button>
 
